@@ -62,6 +62,11 @@ public class RoasterMovement : MonoBehaviour
         anim.SetBool("isJumping", false);
     }
 
+    public void OnCrouching(bool isCrouching) 
+    {
+        anim.SetBool("isCrouching", isCrouching);
+    }
+
     public void UpdateAnimationUpdate()
     {
         if (horizontalMove > 0f)
