@@ -11,8 +11,19 @@ public class GameMaster : MonoBehaviour
     public float spawnDelay = 2;
     public Transform spawnPrefab;
 
-    public Transform boxBreakPoint;
+
+    //public Transform boxBreakPoint;
     public Transform boxBreakPrefab;
+
+
+    public class GameStateStats
+    {
+        public int playerDeathCount = 0;
+
+    }
+
+    public GameStateStats gameStateStats = new();
+
 
     private void Start()
     {
@@ -25,6 +36,7 @@ public class GameMaster : MonoBehaviour
     public static void KillPlayer(Player player)
     {
         Destroy(player.gameObject);
+        gm.gameStateStats.playerDeathCount++;
         Debug.Log("Player Died");
         gm.StartCoroutine(gm.RespawnPlayer());
     }
@@ -32,7 +44,8 @@ public class GameMaster : MonoBehaviour
     public static void KillObject(InteractiveObject intObj)
     {
         
-        Transform clone = Instantiate(gm.boxBreakPrefab, gm.boxBreakPoint.position, gm.boxBreakPoint.rotation) as Transform;
+        //Transform clone = Instantiate(gm.boxBreakPrefab, gm.boxBreakPoint.position, gm.boxBreakPoint.rotation) as Transform;
+        Transform clone = Instantiate(gm.boxBreakPrefab, intObj.transform.position, intObj.transform.rotation) as Transform;
         Destroy(clone.gameObject, 3f);
         Destroy(intObj.gameObject);
         Debug.Log("object Destroyed");
@@ -40,7 +53,8 @@ public class GameMaster : MonoBehaviour
 
     public IEnumerator RespawnPlayer()
     {
-        Debug.Log("TODO: Waiting for spawn sound");
+        //Debug.Log("TODO: Waiting for spawn sound");
+        Debug.Log("DeathCount = " + gameStateStats.playerDeathCount);
         yield return new WaitForSeconds(spawnDelay);
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
         Transform clone = Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation) as Transform;

@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435795296319601378, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.67
+      value: 31.61
       objectReference: {fileID: 0}
     - target: {fileID: 435795296319601378, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -716,11 +716,6 @@ Transform:
   m_Father: {fileID: 773774027}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1036574225 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4780636580111578754, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
-  m_PrefabInstance: {fileID: 435795296874135889}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1121306782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,6 +1765,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 435795296319601376, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 435795296319601377, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
       propertyPath: m_Name
       value: Crate
@@ -1780,7 +1779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 435795296319601378, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.582659
+      value: 27.99
       objectReference: {fileID: 0}
     - target: {fileID: 435795296319601378, guid: 11d627d9a8c8f4b4185075e11da758b8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1890,7 +1889,7 @@ PrefabInstance:
     - target: {fileID: 4823151089642293385, guid: 1ed064c6d176a804aa37e02d7afc4adf, type: 3}
       propertyPath: boxBreakPoint
       value: 
-      objectReference: {fileID: 1036574225}
+      objectReference: {fileID: 0}
     - target: {fileID: 4823151089642293385, guid: 1ed064c6d176a804aa37e02d7afc4adf, type: 3}
       propertyPath: boxBreakPrefab
       value: 
@@ -1951,6 +1950,10 @@ PrefabInstance:
     - target: {fileID: 7028579724100465219, guid: 34082dbde75868140bcae5ab52f85ee2, type: 3}
       propertyPath: m_Name
       value: Roaster(Gen3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028579724100465242, guid: 34082dbde75868140bcae5ab52f85ee2, type: 3}
+      propertyPath: fallBoundaryY
+      value: -25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34082dbde75868140bcae5ab52f85ee2, type: 3}

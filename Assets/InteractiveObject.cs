@@ -28,6 +28,7 @@ public class InteractiveObject : MonoBehaviour
         objectStats.Health -= damage;
         if (objectStats.Health <= 0)
         {
+            Debug.Log(this);
             GameMaster.KillObject(this);
         }
     }
