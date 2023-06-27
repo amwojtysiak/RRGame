@@ -2141,6 +2141,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7028579724100465217, guid: 34082dbde75868140bcae5ab52f85ee2, type: 3}
+      propertyPath: _groundLayer.m_Bits
+      value: 191
+      objectReference: {fileID: 0}
     - target: {fileID: 7028579724100465219, guid: 34082dbde75868140bcae5ab52f85ee2, type: 3}
       propertyPath: m_Name
       value: Roaster(Gen3)

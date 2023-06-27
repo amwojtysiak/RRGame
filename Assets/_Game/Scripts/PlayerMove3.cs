@@ -212,7 +212,7 @@ public class PlayerMove3 : MonoBehaviour
 		//Higher gravity if we've released the jump input or are falling
 		if (IsSliding)
 		{
-			SetGravityScale(0);
+			//SetGravityScale(0);
 		}
 		else if (RB.velocity.y < 0 && _moveInput.y < 0)
 		{
@@ -255,8 +255,8 @@ public class PlayerMove3 : MonoBehaviour
 			Run(1);
 
 		//Handle Slide
-		if (IsSliding)
-			Slide();
+		//if (IsSliding)
+			//Slide();
 	}
 
 	#region INPUT CALLBACKS
