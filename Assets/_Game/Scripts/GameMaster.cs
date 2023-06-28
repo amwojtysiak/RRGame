@@ -51,6 +51,16 @@ public class GameMaster : MonoBehaviour
         Debug.Log("object Destroyed");
     }
 
+    public static void KillEnemy(SpaceShip_Enemy intObj)
+    {
+
+        //Transform clone = Instantiate(gm.boxBreakPrefab, gm.boxBreakPoint.position, gm.boxBreakPoint.rotation) as Transform;
+        Transform clone = Instantiate(gm.boxBreakPrefab, intObj.transform.position, intObj.transform.rotation) as Transform;
+        Destroy(clone.gameObject, 3f);
+        Destroy(intObj.gameObject);
+        Debug.Log("object Destroyed");
+    }
+
     public IEnumerator RespawnPlayer()
     {
         //Debug.Log("TODO: Waiting for spawn sound");
