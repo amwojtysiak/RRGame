@@ -26,6 +26,8 @@ public class Weapon : MonoBehaviour
     Vector2 left_vector; //Adam
     Vector2 shotVector; //Adam
 
+    public AudioClip gunShotAudio1;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -89,13 +91,12 @@ public class Weapon : MonoBehaviour
         //Debug.DrawLine(firePointPosition, (shotVector-firePointPosition)*100, Color.red);
         if (hit.collider != null)
         {
-            Debug.DrawLine(firePointPosition, hit.point, Color.white);
+            //Debug.DrawLine(firePointPosition, hit.point, Color.white);
             Debug.Log("We hit " + hit.collider.name + " and did " + Damage + " damage.");
        
             SpriteRenderer spriteObj = hit.collider.gameObject.GetComponent<SpriteRenderer>();
             spriteObj.color = Color.black;
             hit.collider.gameObject.SendMessage("DamageObject", 5);
-            //Destroy(hit.collider.gameObject);
         }
 
         
@@ -113,6 +114,8 @@ public class Weapon : MonoBehaviour
         flashClone.parent = firePoint;
         float size = Random.Range(0.04f, 0.06f);
         flashClone.localScale = new Vector3(size, size, 0);
+
+        AudioSource.PlayClipAtPoint(gunShotAudio1, new Vector2(firePoint.position.x, firePoint.position.y), 5f);
 
         Destroy(flashClone.gameObject, 0.03f);
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove3 : MonoBehaviour
@@ -20,6 +21,8 @@ public class PlayerMove3 : MonoBehaviour
 
 	public PlayerData Data;
 	public Weapon Gun;
+
+	public AudioClip[] bawksArr;
 
 	#region Variables
 	//Components
@@ -366,8 +369,22 @@ public class PlayerMove3 : MonoBehaviour
 			force -= RB.velocity.y;
 
 		RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        #endregion
+
+        #region Play Bawk Sound
+        System.Random rnd = new System.Random();
+		int random_number = rnd.Next(1, 5);
+		int bawkNum = rnd.Next(0, 3);
+		if (random_number == 3)
+        {
+			
+			AudioSource.PlayClipAtPoint(bawksArr[bawkNum], new Vector2(RB.position.x, RB.position.y), 5f);
+		}
+
 		#endregion
 	}
+
+    
 
 	private void WallJump(int dir)
 	{
@@ -459,5 +476,6 @@ public class PlayerMove3 : MonoBehaviour
 	}
 	#endregion
 }
+
 
 // created by Dawnosaur :D
