@@ -11,10 +11,11 @@ public class Weapon : MonoBehaviour
     public bool IsShootingRight;
 
     public float fireRate = 0;
-    public float Damage = 10;
+    public int Damage = 10;
     public LayerMask whatToHit;
 
     public Transform BulletTrailPrefab;
+    public Transform HitPrefab;
     public Transform MuzzleFlashPrefab;
     float timeToSpawnEffect = 0;
     public float effectSpawnRate = 10;
@@ -82,11 +83,7 @@ public class Weapon : MonoBehaviour
         
         Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
         RaycastHit2D hit = Physics2D.Raycast(firePointPosition, shotVector, 100, whatToHit);
-        if (Time.time >= timeToSpawnEffect)
-        {
-            Effect();
-            timeToSpawnEffect = Time.time + 1 /effectSpawnRate;
-        }
+        
         
         //Debug.DrawLine(firePointPosition, (shotVector-firePointPosition)*100, Color.red);
         if (hit.collider != null)
@@ -95,19 +92,57 @@ public class Weapon : MonoBehaviour
             Debug.Log("We hit " + hit.collider.name + " and did " + Damage + " damage.");
        
             SpriteRenderer spriteObj = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-            spriteObj.color = Color.black;
-            hit.collider.gameObject.SendMessage("DamageObject", 5);
+            if (spriteObj != null)
+            {
+                spriteObj.color = Color.black;
+                hit.collider.gameObject.SendMessage("DamageObject", Damage);
+            }
+                
+            
         }
 
-        
+        if (Time.time >= timeToSpawnEffect)
+        {
+            Vector3 hitPos;
+            Vector3 hitNormal;
+
+            if (hit.collider == null)
+            {
+                hitPos = (shotVector - firePointPosition) * 100;
+                hitNormal = new Vector3(9999, 9999, 9999);
+            }   
+            else
+            {
+                hitPos = hit.point;
+                hitNormal = hit.normal;
+            }
+               
+
+            Effect(hitPos, hitNormal);
+            timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
+        }
     }
 
-    void Effect()
+    void Effect(Vector3 hitPos, Vector3 hitNormal)
     {
-        Transform bulletTrailClone = Instantiate(BulletTrailPrefab, firePoint.position, firePoint.rotation);
+        Transform trail = Instantiate(BulletTrailPrefab, firePoint.position, firePoint.rotation) as Transform;
+        LineRenderer lr = trail.GetComponent<LineRenderer>();
+        if (lr != null)
+        {
+            lr.SetPosition(0, firePoint.position);
+            lr.SetPosition(1, hitPos);
+        }
+
         if (IsShootingRight == false)
         {
-            bulletTrailClone.transform.Rotate(0, 180, 0);
+            trail.transform.Rotate(0, 180, 0);
+        }
+
+        Destroy(trail.gameObject, 0.1f);
+
+        if (hitNormal != new Vector3(9999, 9999, 9999))
+        {
+            Instantiate(HitPrefab, hitPos, Quaternion.FromToRotation(Vector3.forward, hitNormal));
         }
 
         Transform flashClone = Instantiate(MuzzleFlashPrefab, firePoint.position, firePoint.rotation) as Transform;

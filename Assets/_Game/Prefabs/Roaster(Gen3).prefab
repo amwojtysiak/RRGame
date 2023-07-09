@@ -366,11 +366,12 @@ MonoBehaviour:
   IsFacingRight: 0
   IsShootingRight: 0
   fireRate: 0
-  Damage: 10
+  Damage: 5
   whatToHit:
     serializedVersion: 2
     m_Bits: 699
   BulletTrailPrefab: {fileID: 4511046799046053583, guid: b07e2ddc33b9bd946adf54c3f8e06e16, type: 3}
+  HitPrefab: {fileID: 1684538089994400939, guid: a39ce9c57f0f88f4d9a49e1c4eef31b8, type: 3}
   MuzzleFlashPrefab: {fileID: 605824361684976625, guid: 498a80f662facca41bd9410712582244, type: 3}
   effectSpawnRate: 10
   gunShotAudio1: {fileID: 8300000, guid: 77b7a0efa0180b843858ccc9ac18447b, type: 3}
