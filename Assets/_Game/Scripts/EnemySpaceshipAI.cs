@@ -49,7 +49,7 @@ public class EnemySpaceshipAI : MonoBehaviour
 
             return;
         }
-
+        Debug.Log(target.position);
         // Start a new path to the target position return this result to onPathComplete method
         seeker.StartPath(transform.position, target.position, OnPathComplete);
 
@@ -94,7 +94,7 @@ public class EnemySpaceshipAI : MonoBehaviour
 
     public void OnPathComplete(Path p)
     {
-        Debug.Log("we got a path. Did it have an error? " + p.error);
+        //Debug.Log("we got a path. Did it have an error? " + p.error);
         if (!p.error)
         {
             path = p;
@@ -124,7 +124,7 @@ public class EnemySpaceshipAI : MonoBehaviour
         {
             if (pathIsEnded)
                 return;
-            Debug.Log("End of path reached.");
+            //Debug.Log("End of path reached.");
             pathIsEnded = true;
             return;
         }

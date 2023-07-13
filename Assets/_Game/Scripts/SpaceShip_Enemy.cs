@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SpaceShip_Enemy : MonoBehaviour
@@ -15,11 +16,30 @@ public class SpaceShip_Enemy : MonoBehaviour
     [System.Serializable]
     public class SpaceShipStats
     {
-        public int Health = 10;
+        public int maxHealth = 100;
 
+        private int _curHealth;
+        public int curHealth
+        {
+            get { return _curHealth;  }
+            set { _curHealth = Mathf.Clamp(value, 0, maxHealth); }
+        }
+
+        public int damage = 40;
+
+        public int knockBackForce = 20;
+
+        public void Init()
+        {
+            curHealth = maxHealth;
+        }
     }
 
     public SpaceShipStats enemyStats = new();
+
+    [Header("Optional: ")]
+    [SerializeField]
+    private StatusIndicator statusIndicator;
 
     public int fallBoundaryY = -20;
 
@@ -31,6 +51,13 @@ public class SpaceShip_Enemy : MonoBehaviour
 
     void Start()
     {
+        enemyStats.Init();
+
+        if (statusIndicator != null)
+        {
+            statusIndicator.SetHealth(enemyStats.curHealth, enemyStats.maxHealth);
+        }
+
         walkingLeft = true;
         startPosX = RB.position.x;
 
@@ -67,14 +94,37 @@ public class SpaceShip_Enemy : MonoBehaviour
 
     public void DamageObject(int damage)
     {
-        enemyStats.Health -= damage;
-        if (enemyStats.Health <= 0)
+        enemyStats.curHealth -= damage;
+        if (enemyStats.curHealth <= 0)
         {
-            Debug.Log(this);
             GameMaster.KillEnemy(this);
+        }
+        if (statusIndicator != null)
+        {
+            statusIndicator.SetHealth(enemyStats.curHealth, enemyStats.maxHealth);
         }
     }
    
+    void OnCollisionEnter2D(Collision2D _collInfo)
+    {
+        Player _player = _collInfo.collider.GetComponent<Player>();
+        Rigidbody2D _rb = _collInfo.rigidbody;
+        Rigidbody2D _rbEnemy = _collInfo.otherRigidbody;
+        Collider2D playerCollider = _collInfo.collider;
+        //Vector3 colVelocity = _collInfo.relativeVelocity;
+        
+
+        Vector2 kbDirection = (playerCollider.transform.position - transform.position).normalized;
+
+        if (_player != null)
+        {
+            _player.DamagePlayer(enemyStats.damage);
+            //_rb.AddForce(colVelocity * -50, ForceMode2D.Impulse);
+            _rb.AddForce(kbDirection * enemyStats.knockBackForce, ForceMode2D.Impulse);
+            _rbEnemy.AddForce(-1 * (enemyStats.knockBackForce/10) * kbDirection, ForceMode2D.Impulse);
+
+        }
+    }
 }
 
 

@@ -94,7 +94,7 @@ public class Weapon : MonoBehaviour
             SpriteRenderer spriteObj = hit.collider.gameObject.GetComponent<SpriteRenderer>();
             if (spriteObj != null)
             {
-                spriteObj.color = Color.black;
+                //spriteObj.color = Color.black;
                 hit.collider.gameObject.SendMessage("DamageObject", Damage);
             }
                 
